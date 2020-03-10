@@ -23,8 +23,6 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
 
         private readonly DaprClient _client;
 
-        private static string DefaultHttpPort => Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") ?? "3500";
-
         /// <summary>
         /// Creates a new instance of <see cref="DaprSecretStoreConfigurationProvider"/>.
         /// </summary>
