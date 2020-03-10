@@ -17,10 +17,6 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
     /// </summary>
     internal class DaprSecretStoreConfigurationProvider : ConfigurationProvider
     {
-        private const string DaprDefaultEndpoint = "127.0.0.1";
-
-        public const string SecretPath = "/v1.0/secrets";
-
         private readonly string _store;
 
         private readonly DaprSecretDescriptor[] _secrets;
