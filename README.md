@@ -18,7 +18,7 @@ This repo builds the following packages:
 - Dapr.AspNetCore
 - Dapr.Actors
 - Dapr.Actors.AspNetCore
-- Dapr.Microsoft.Extensions.Configuration.DaprSecretStore
+- Dapr.Configuration.Extensions
 
 ## Getting Started
 

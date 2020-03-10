@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapr.Client", "Dapr.Client\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapr.AspNetCore", "Dapr.AspNetCore\Dapr.AspNetCore.csproj", "{08D602F6-7C11-4653-B70B-B56333BF6FD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapr.Microsoft.Extensions.Configuration.DaprSecretStore", "Dapr.SecretStore.ConfigurationExtension\Dapr.Microsoft.Extensions.Configuration.DaprSecretStore.csproj", "{3757D4B4-D084-4938-88CF-6539B6E3D08C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapr.Configuration.Extensions", "Dapr.Configuration.Extensions\Dapr.Configuration.Extensions.csproj", "{3757D4B4-D084-4938-88CF-6539B6E3D08C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -50,9 +50,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapr.Microsoft.Extensions.Configuration.DaprSecretStore", "src\Dapr.SecretStore.ConfigurationExtension\Dapr.Microsoft.Extensions.Configuration.DaprSecretStore.csproj", "{3EFB6020-F928-4FF4-A795-6B426C3886A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapr.Configuration.Extensions", "src\Dapr.Configuration.Extensions\Dapr.Configuration.Extensions.csproj", "{3EFB6020-F928-4FF4-A795-6B426C3886A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapr.Microsoft.Extensions.Configuration.DaprSecretStore.Test", "test\Dapr.SecretStore.ConfigurationExtension\Dapr.Microsoft.Extensions.Configuration.DaprSecretStore.Test.csproj", "{E39DC087-2521-4BB3-933E-E8AFD74AFA6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapr.Configuration.Extensions.Test", "test\Dapr.Configuration.Extensions.Test\Dapr.Configuration.Extensions.Test.csproj", "{E39DC087-2521-4BB3-933E-E8AFD74AFA6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Dapr.SecretStore.ConfigurationExtension\Dapr.Microsoft.Extensions.Configuration.DaprSecretStore.csproj" />
+    <ProjectReference Include="..\..\src\Dapr.Configuration.Extensions\Dapr.Configuration.Extensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
