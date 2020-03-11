@@ -58,7 +58,7 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
             var data = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             foreach (var secret in _secrets)
             {
-                var result = await _client.GetSecretAsync(_store, secret.SecretName, (Dictionary<string, string>)secret.Metadata);
+                var result = await _client.GetSecretAsync(_store, secret.SecretName, secret.Metadata);
 
                 foreach (var returnedKey in result.Keys)
                 {

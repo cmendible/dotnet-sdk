@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.Configuration
         /// <summary>
         /// Gets or sets the secret's metadata.
         /// </summary>
-        public IDictionary<string, string> Metadata { get; }
+        public Dictionary<string, string> Metadata { get; }
 
         /// <summary>
         /// Secret Descriptor Construcutor
@@ -37,7 +37,7 @@ namespace Microsoft.Extensions.Configuration
         /// <summary>
         /// Secret Descriptor Construcutor
         /// </summary>
-        public DaprSecretDescriptor(string secretName, IDictionary<string, string> metadata)
+        public DaprSecretDescriptor(string secretName, Dictionary<string, string> metadata)
         {
             SecretName = secretName;
             Metadata = metadata;
