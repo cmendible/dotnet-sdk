@@ -20,15 +20,34 @@ namespace Microsoft.Extensions.Configuration
         /// Adds an <see cref="IConfigurationProvider"/> that reads configuration values from the Dapr Secret Store.
         /// </summary>
         /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to add to.</param>
-        /// <param name="store">Dapr Secre Store name.</param>
+        /// <param name="store">Dapr secret store name.</param>
         /// <param name="secrets">The secrets to retrieve.</param>
-        /// <param name="client">Dapr client used to retrieve Secrets</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddDaprSecretStore(
+            this IConfigurationBuilder configurationBuilder,
+            string store,
+            DaprSecretDescriptor[] secrets)
+        {
+            return AddDaprSecretStore(
+                configurationBuilder,
+                store,
+                secrets,
+                (builder) => { });
+        }
+
+        /// <summary>
+        /// Adds an <see cref="IConfigurationProvider"/> that reads configuration values from the Dapr Secret Store.
+        /// </summary>
+        /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="store">Dapr secret store name.</param>
+        /// <param name="secrets">The secrets to retrieve.</param>
+        /// <param name="builder">Configures the Dapr client builder</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
         public static IConfigurationBuilder AddDaprSecretStore(
             this IConfigurationBuilder configurationBuilder,
             string store,
             DaprSecretDescriptor[] secrets,
-            DaprClient client)
+            Action<DaprClientBuilder> builder)
         {
             if (store == null)
             {
@@ -40,10 +59,14 @@ namespace Microsoft.Extensions.Configuration
                 throw new ArgumentNullException(nameof(secrets));
             }
 
-            if (client == null)
+            if (builder == null)
             {
-                throw new ArgumentNullException(nameof(client));
+                throw new ArgumentNullException(nameof(builder));
             }
+
+            var daprClientBuilder = new DaprClientBuilder();
+            builder.Invoke(daprClientBuilder);
+            var client = daprClientBuilder.Build();
 
             configurationBuilder.Add(new DaprSecretStoreConfigurationSource()
             {
@@ -54,5 +77,14 @@ namespace Microsoft.Extensions.Configuration
 
             return configurationBuilder;
         }
+
+        /// <summary>
+        /// Adds an <see cref="IConfigurationProvider"/> that reads configuration values from the command line.
+        /// </summary>
+        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="configureSource">Configures the source.</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddDaprSecretStore(this IConfigurationBuilder builder, Action<DaprSecretStoreConfigurationSource> configureSource)
+            => builder.Add(configureSource);
     }
 }

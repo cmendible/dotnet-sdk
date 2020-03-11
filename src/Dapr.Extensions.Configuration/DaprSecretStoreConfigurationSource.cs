@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
     /// <summary>
     /// Represents Dapr Secret Store as an <see cref="IConfigurationSource"/>.
     /// </summary>
-    internal class DaprSecretStoreConfigurationSource : IConfigurationSource
+    public class DaprSecretStoreConfigurationSource : IConfigurationSource
     {
         /// <summary>
         /// Gets or sets the store name.

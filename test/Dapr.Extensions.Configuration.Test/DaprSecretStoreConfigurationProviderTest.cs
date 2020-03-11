@@ -40,12 +40,13 @@ namespace Dapr.Extensions.Configuration.Test
                    }
             };
 
-            var daprClient = new DaprClientBuilder()
-                .UseGrpcChannelOptions(new GrpcChannelOptions { HttpClient = httpClient })
-                .Build();
+            Action<DaprClientBuilder> configBuilder = (builder) =>
+            {
+                builder.UseGrpcChannelOptions(new GrpcChannelOptions { HttpClient = httpClient });
+            };
 
             var config = CreateBuilder()
-                    .AddDaprSecretStore("store", new DaprSecretDescriptor[] { new DaprSecretDescriptor("secretName") }, daprClient)
+                    .AddDaprSecretStore("store", new DaprSecretDescriptor[] { new DaprSecretDescriptor("secretName") }, configBuilder)
                     .Build();
 
             config["secretName"].Should().Be("secret");
@@ -71,12 +72,13 @@ namespace Dapr.Extensions.Configuration.Test
                    }
             };
 
-            var daprClient = new DaprClientBuilder()
-               .UseGrpcChannelOptions(new GrpcChannelOptions { HttpClient = httpClient })
-               .Build();
+            Action<DaprClientBuilder> configBuilder = (builder) =>
+            {
+                builder.UseGrpcChannelOptions(new GrpcChannelOptions { HttpClient = httpClient });
+            };
 
             var config = CreateBuilder()
-                    .AddDaprSecretStore("store", new DaprSecretDescriptor[] { new DaprSecretDescriptor("secretName") }, daprClient)
+                    .AddDaprSecretStore("store", new DaprSecretDescriptor[] { new DaprSecretDescriptor("secretName") }, configBuilder)
                     .Build();
 
             config["first_secret"].Should().Be("secret1");
