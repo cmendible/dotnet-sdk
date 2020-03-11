@@ -17,7 +17,7 @@ using Dapr.Client;
 using Grpc.Net.Client;
 using System.Net;
 
-namespace Dapr.Configuration.Extensions.Test
+namespace Dapr.Extensions.Configuration.Test
 {
     public class DaprSecretStoreConfigurationProviderTest
     {
