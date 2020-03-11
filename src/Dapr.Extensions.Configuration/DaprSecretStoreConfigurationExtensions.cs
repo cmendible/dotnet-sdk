@@ -5,9 +5,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using Dapr.Client;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.DaprSecretStore;
 
 namespace Microsoft.Extensions.Configuration
@@ -27,12 +25,13 @@ namespace Microsoft.Extensions.Configuration
         public static IConfigurationBuilder AddDaprSecretStore(
             this IConfigurationBuilder configurationBuilder,
             string store,
-            IEnumerable<DaprSecretDescriptor> secrets)
+            IEnumerable<string> secrets)
         {
             return AddDaprSecretStore(
                 configurationBuilder,
                 store,
                 secrets,
+                new DefaultDaprSecretStoreManager(),
                 (builder) => { });
         }
 
@@ -42,12 +41,14 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to add to.</param>
         /// <param name="store">Dapr secret store name.</param>
         /// <param name="secrets">The secrets to retrieve.</param>
+        /// <param name="manager">The <see cref="IDaprSecretStoreManager"/> instance used to control secret loading.</param>
         /// <param name="builder">Configures the Dapr client builder</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
         public static IConfigurationBuilder AddDaprSecretStore(
             this IConfigurationBuilder configurationBuilder,
             string store,
-            IEnumerable<DaprSecretDescriptor> secrets,
+            IEnumerable<string> secrets,
+            IDaprSecretStoreManager manager,
             Action<DaprClientBuilder> builder)
         {
             if (store == null)
@@ -58,6 +59,11 @@ namespace Microsoft.Extensions.Configuration
             if (secrets == null)
             {
                 throw new ArgumentNullException(nameof(secrets));
+            }
+
+            if (manager == null)
+            {
+                throw new ArgumentNullException(nameof(manager));
             }
 
             if (builder == null)
@@ -73,6 +79,7 @@ namespace Microsoft.Extensions.Configuration
             {
                 Store = store,
                 Secrets = secrets,
+                Manager = manager,
                 Client = client
             });
 

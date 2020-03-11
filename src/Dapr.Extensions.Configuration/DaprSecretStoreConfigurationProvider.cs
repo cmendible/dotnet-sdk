@@ -5,8 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Dapr.Client;
 
@@ -19,9 +17,11 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
     {
         private readonly string _store;
 
-        private readonly IEnumerable<DaprSecretDescriptor> _secrets;
+        private readonly IEnumerable<string> _secrets;
 
         private readonly DaprClient _client;
+
+        private readonly IDaprSecretStoreManager _manager;
 
         /// <summary>
         /// Creates a new instance of <see cref="DaprSecretStoreConfigurationProvider"/>.
@@ -29,7 +29,8 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
         /// <param name="store">Dapr Secre Store name.</param>
         /// <param name="secrets">The secrets to retrieve.</param>
         /// <param name="client">Dapr client used to retrieve Secrets</param>
-        public DaprSecretStoreConfigurationProvider(string store, IEnumerable<DaprSecretDescriptor> secrets, DaprClient client)
+        /// <param name="manager"></param>
+        public DaprSecretStoreConfigurationProvider(string store, IEnumerable<string> secrets, DaprClient client, IDaprSecretStoreManager manager)
         {
             if (store == null)
             {
@@ -46,9 +47,15 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
                 throw new ArgumentNullException(nameof(client));
             }
 
+            if (manager == null)
+            {
+                throw new ArgumentNullException(nameof(manager));
+            }
+
             _store = store;
             _secrets = secrets;
             _client = client;
+            _manager = manager;
         }
 
         public override void Load() => LoadAsync().ConfigureAwait(false).GetAwaiter().GetResult();
@@ -58,11 +65,11 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
             var data = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             foreach (var secret in _secrets)
             {
-                var result = await _client.GetSecretAsync(_store, secret.SecretName, secret.Metadata).ConfigureAwait(false);
+                var result = await _client.GetSecretAsync(_store, secret, _manager.Metadata(secret)).ConfigureAwait(false);
 
                 foreach (var returnedKey in result.Keys)
                 {
-                    var key = returnedKey != "_default" ? returnedKey : secret.SecretName;
+                    var key = _manager.GetKey(returnedKey != "_default" ? returnedKey : secret);
                     if (data.ContainsKey(key))
                     {
                         throw new FormatException($"A duplicate key '{key}' was found.");

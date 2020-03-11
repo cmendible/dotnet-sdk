@@ -4,7 +4,6 @@
 // ------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Net.Http;
 using Dapr.Client;
 
 namespace Microsoft.Extensions.Configuration.DaprSecretStore
@@ -22,7 +21,12 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
         /// <summary>
         /// Gets or sets the secret names.
         /// </summary>
-        public IEnumerable<DaprSecretDescriptor> Secrets { get; set; }
+        public IEnumerable<string> Secrets { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="IDaprSecretStoreManager"/> instance used to control secret loading.
+        /// </summary>
+        public IDaprSecretStoreManager Manager { get; set; }
 
         /// <summary>
         /// Gets or sets the http client.
@@ -32,7 +36,7 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
         /// <inheritdoc />
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return new DaprSecretStoreConfigurationProvider(Store, Secrets, Client);
+            return new DaprSecretStoreConfigurationProvider(Store, Secrets, Client, Manager);
         }
     }
 }
