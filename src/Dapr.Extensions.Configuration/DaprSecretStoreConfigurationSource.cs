@@ -3,6 +3,7 @@
 // Licensed under the MIT License.
 // ------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.Net.Http;
 using Dapr.Client;
 
@@ -21,7 +22,7 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
         /// <summary>
         /// Gets or sets the secret names.
         /// </summary>
-        public DaprSecretDescriptor[] Secrets { get; set; }
+        public IEnumerable<DaprSecretDescriptor> Secrets { get; set; }
 
         /// <summary>
         /// Gets or sets the http client.

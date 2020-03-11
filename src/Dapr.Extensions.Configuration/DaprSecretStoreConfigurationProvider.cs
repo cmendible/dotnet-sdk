@@ -19,7 +19,7 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
     {
         private readonly string _store;
 
-        private readonly DaprSecretDescriptor[] _secrets;
+        private readonly IEnumerable<DaprSecretDescriptor> _secrets;
 
         private readonly DaprClient _client;
 
@@ -29,7 +29,7 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
         /// <param name="store">Dapr Secre Store name.</param>
         /// <param name="secrets">The secrets to retrieve.</param>
         /// <param name="client">Dapr client used to retrieve Secrets</param>
-        public DaprSecretStoreConfigurationProvider(string store, DaprSecretDescriptor[] secrets, DaprClient client)
+        public DaprSecretStoreConfigurationProvider(string store, IEnumerable<DaprSecretDescriptor> secrets, DaprClient client)
         {
             if (store == null)
             {

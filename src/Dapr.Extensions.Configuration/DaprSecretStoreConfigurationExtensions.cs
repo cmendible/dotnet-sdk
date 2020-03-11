@@ -4,6 +4,7 @@
 // ------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using Dapr.Client;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +27,7 @@ namespace Microsoft.Extensions.Configuration
         public static IConfigurationBuilder AddDaprSecretStore(
             this IConfigurationBuilder configurationBuilder,
             string store,
-            DaprSecretDescriptor[] secrets)
+            IEnumerable<DaprSecretDescriptor> secrets)
         {
             return AddDaprSecretStore(
                 configurationBuilder,
@@ -46,7 +47,7 @@ namespace Microsoft.Extensions.Configuration
         public static IConfigurationBuilder AddDaprSecretStore(
             this IConfigurationBuilder configurationBuilder,
             string store,
-            DaprSecretDescriptor[] secrets,
+            IEnumerable<DaprSecretDescriptor> secrets,
             Action<DaprClientBuilder> builder)
         {
             if (store == null)
