@@ -63,6 +63,11 @@ namespace Microsoft.Extensions.Configuration.DaprSecretStore
                 foreach (var returnedKey in result.Keys)
                 {
                     var key = returnedKey != "_default" ? returnedKey : secret.SecretName;
+                    if (data.ContainsKey(key))
+                    {
+                        throw new FormatException($"A duplicate key '{key}' was found.");
+                    }
+
                     data.Add(key, result[returnedKey]);
                 }
             }
